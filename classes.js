@@ -1,25 +1,43 @@
 class Vector {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    draw(x, y, col) {
-        var finalX = x + this.x;
-        var finalY = y + this.y;
-        stroke(col);
-        line(x, y, finalX, finalY);
-        stroke(0,0,0);
-        circle(x, y, 10);
-        circle(finalX, finalY, 10);
+    constructor(vertex) {
+        this.vertex = vertex
     }
 }
 
+class Vertex{
+    constructor(x,y){
+        this.x = x
+        this.y = y
+    }
 
-class Line{ // will be the responsible to draw my vector. 
-            // By here i wish be able to modify the vector changing de vertices positions
-            // OO for the win
-    //pos
-    //cor
-    //vector
+    sum(ver2){
+        return new Vertex(this.x + ver2.x, this.y + ver2.y)
+    }
+
+    sub(ver2){
+        return new Vertex(this.x - ver2.x, this.y - ver2.y)
+    }
+
+    draw(col){
+        fill(col)
+        circle(this.x, this.y, 10)
+        fill(0,0,0)
+    }
+}
+
+class Line { 
+    constructor(begin, end) {
+        this.begin = begin
+        this.end = end
+        this.vector = new Vector(end.sub(begin))
+    }
+
+    draw() {
+        line(this.begin.x, this.begin.y, this.end.x, this.end.y);
+        this.begin.draw(color(0,255,0))
+        this.end.draw(color(255,0,0))
+
+        text(JSON.stringify(this.vector), this.end.x, this.end.y)
+    }
+
 }
