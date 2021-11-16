@@ -4,12 +4,6 @@ function drawResultVector(coords,vectors) {
     result.color = color(200,0,0)
     result.draw(last)
 }
-
-function shuffleVectors() {
-    vectors2 = [...vectors]
-    vectors2.sort(() => 0.5 - Math.random());
-}
-
 function drawVectors(coords, vectors) {
     if (begin == -1) return
     last = begin.sum(coords)
