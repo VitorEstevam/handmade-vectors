@@ -22,7 +22,7 @@ function drawVectors(coords, vectors) {
         last = last.sum(vector.coords)
     }
 
-    if(vectors.length > 1)
+    if(vectors.length > 1 && showResult)
         drawResultVector(coords,vectors)
 }
 
@@ -34,6 +34,7 @@ function setup() {
     v2 = -1
     vectors = []
     vectors2 = []
+    showResult = false
 }
 
 function draw() {
@@ -45,7 +46,7 @@ function draw() {
 
     fill(255,255,255)
     stroke(0,0,0)
-    text("CLICK, to add points\nSPACE to shuffle\nR to reload",670,360)
+    text("CLICK, to add points\nT to show/hide result\nSPACE to shuffle\nR to reload",670,350)
 }
 
 function mouseClicked() {
@@ -74,5 +75,8 @@ function keyPressed() {
     }
     if (key == 'r'){
         setup();
+    }
+    if(key == 't'){
+        showResult = !showResult
     }
 }
