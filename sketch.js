@@ -1,47 +1,47 @@
-var v1 = -1
-var v2 = -1
-
-
-function resultVector(vectors) {
+function drawResultVector(vectors) {
     var result = vectors.reduce(reducer = (previousVector, currentVector) => currentVector.sum(previousVector))
-    return result
-}
-
-function createResult(lines) {
-    var vectors = lines.map((line) => { return line.vector })
-    var result = resultVector(vectors)
-    var resultLine = new lineFromVector(result, lines[0].begin)
-
-    resultLine.draw(color(255, 0, 0))
+    result.draw(begin, color(255,0,0))
 }
 
 function setup() {
-    createCanvas(800, 400);
+    createCanvas(400, 400);
     background(150, 150, 150);
 
-    lines = []
+    begin = -1
+    v1 = -1
+    v2 = -1
+    vectors = [] 
 }
 
 function draw() {
-
-
     background(150, 150, 150)
-    lines.forEach(line => {
-        line.draw()
+
+    if(begin != -1){ 
+        begin.draw(color(255,255,255))
+    }
+
+    last = begin
+    vectors.forEach(vector => {
+        vector.draw(last)
+        last = last.sum(vector.coords)
     });
 
-    if (lines.length > 0) {
-        createResult(lines) 
+    if(vectors.length >0){
+        drawResultVector(vectors)
     }
 }
 
 function mouseClicked() {
     pos = new Coords(mouseX, mouseY)
-    v1 == -1 ? v1 = pos : v2 == -1 ? v2 = pos : () => { }
-    if (v2 != -1) {
-        v2 = pos
-        lines.push(new Line(v1, v2))
+    if(v1 == -1){
         v1 = pos
+        begin = pos
+    }
+    else{
+        v2 = pos
+        var vec = new Vector(v2.sub(v1))
+        vectors.push(vec)
+        v1 = v2
     }
     return false;
 }

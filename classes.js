@@ -13,36 +13,29 @@ class Coords {
     }
 
     draw(col) {
-        fill(col)
+        if(color != undefined)fill(col)
         circle(this.x, this.y, 10)
-        fill(0, 0, 0)
+        fill(255, 255, 255)
     }
 }
 
 class Vector {
     constructor(Coords) {
-        this.Coords = Coords
+        this.coords = Coords
     }
 
     sum(vec) {
-        return new Vector(this.Coords.sum(vec.Coords))
-    }
-}
-
-function lineFromVector(vect, begin) {
-    result = new Line(begin, begin.sum(vect.Coords))
-    return result
-}
-class Line {
-    constructor(begin, end) {
-        this.begin = begin
-        this.end = end
-        this.vector = new Vector(end.sub(begin))
+        return new Vector(this.coords.sum(vec.coords))
     }
 
-    draw(col) {
-        this.begin.draw(color(0, 255, 0))
-        this.end.draw(color(255, 0, 0))
-        drawArrowByCoords(this.begin, this.end, col)
+    draw(begin, col){
+        if(col != undefined) stroke(col)
+
+        var end = begin.sum(this.coords)
+        drawArrowByCoords(begin, end, col)
+        begin.draw(color(0,255,0))
+        end.draw(color(255,0,0))
+
+        stroke(0,0,0)
     }
 }
