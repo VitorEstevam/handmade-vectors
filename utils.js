@@ -28,7 +28,7 @@ function drawArrowByCoords(c1,c2, col){
 
 function brightRandomColor(){
     colorMode(HSB, 100);
-    var c= color(random(30,70), 80,100)
+    var c= color(random(10,90), 80,100)
     colorMode(RGB,260)
 
     return c
