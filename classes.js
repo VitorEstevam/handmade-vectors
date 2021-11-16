@@ -28,12 +28,13 @@ class Vector {
         return new Vector(this.coords.sum(vec.coords))
     }
 
-    draw(begin, col){
-        if(col != undefined) stroke(col)
+    draw(begin){
+        col = color(0,0,0)
+        if(this.color != undefined) col = this.color
 
         var end = begin.sum(this.coords)
         drawArrowByCoords(begin, end, col)
-        begin.draw(color(0,255,0))
+        begin.draw(color(255,255,255))
         end.draw(color(255,0,0))
 
         stroke(0,0,0)

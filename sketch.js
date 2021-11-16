@@ -1,7 +1,8 @@
 function drawResultVector(coords,vectors) {
     var result = vectors.reduce(reducer = (previousVector, currentVector) => currentVector.sum(previousVector))
     last = begin.sum(coords)
-    result.draw(last, color(255, 0, 0))
+    result.color = color(200,0,0)
+    result.draw(last)
 }
 
 function shuffleVectors() {
@@ -17,17 +18,16 @@ function drawVectors(coords, vectors) {
         var vector = vectors[index]
         var percent = index / vectors.length
         col = lerpColor(color(0, 255, 0), color(0, 0, 255), percent)
-        vector.draw(last, col)
+        vector.draw(last)
         last = last.sum(vector.coords)
     }
 
-    if(vectors.length > 0)
+    if(vectors.length > 1)
         drawResultVector(coords,vectors)
 }
 
 function setup() {
     createCanvas(800, 400);
-    background(150, 150, 150);
 
     begin = -1
     v1 = -1
@@ -37,7 +37,7 @@ function setup() {
 }
 
 function draw() {
-    background(150, 150, 150)
+    background(100, 100, 100)
     line(400, 0, 400, 400)
 
     drawVectors(new Coords(0, 0), vectors)
@@ -57,6 +57,9 @@ function mouseClicked() {
     else {
         v2 = pos
         var vec = new Vector(v2.sub(v1))
+        
+        var col = brightRandomColor()
+        vec.color = col
         vectors.push(vec)
         vectors2 = [...vectors]
         v1 = v2
